@@ -6,6 +6,7 @@ import (
 	"gormTest/branch/customer"
 
 	"github.com/jinzhu/gorm"
+	uuid "github.com/satori/go.uuid"
 )
 
 func FindAssociations(db *gorm.DB) {
@@ -17,15 +18,14 @@ func FindAssociations(db *gorm.DB) {
 }
 
 func ReplaceAssociation(db *gorm.DB) {
-	
-	bank1 := []customer.BankCustomer{}
+
+	// bank1 := []customer.BankCustomer{}
 	// bank1.ID =
-	db.First(&bank.Bank{}).Association("Customers").Find(&bank1)
+	// db.First(&bank.Bank{}).Association("Customers").Find(&bank1)
 
 	cust1 := customer.BankCustomer{
-		ID:     505,
 		Name:   "Ben",
-		Amount: 2000,
+		Amount: 5000,
 	}
 
 	// cust2 := customer.BankCustomer{
@@ -40,16 +40,13 @@ func ReplaceAssociation(db *gorm.DB) {
 }
 
 func RemoveAssociation(db *gorm.DB) {
-	
+
 	// bank1 := []customer.BankCustomer{}
 	// bank1.ID =
 	// db.First(&bank.Bank{}).Association("Customers").Find(&bank1)
 
-	cust1 := customer.BankCustomer{
-		ID:     506,
-		Name:   "Josh",
-		Amount: 2000,
-	}
+	cust1 := customer.BankCustomer{}
+	cust1.ID, _ = uuid.FromString("699ee70c-f6b6-4986-8003-11e4edd7cb7e")
 
 	// cust2 := customer.BankCustomer{
 	// 	ID:     504,
@@ -57,7 +54,7 @@ func RemoveAssociation(db *gorm.DB) {
 	// 	Amount: 3000,
 	// }
 
-	db.Debug().First(&bank.Bank{}).Association("Customers").Replace([]customer.BankCustomer{cust1})
+	db.Debug().First(&bank.Bank{}).Association("Customers").Delete([]customer.BankCustomer{cust1})
 
 	fmt.Println("Associations removed")
 }

@@ -3,6 +3,7 @@ package main
 import (
 	"errors"
 	"fmt"
+	"gormTest/branch/associations"
 	"gormTest/branch/bank"
 	"gormTest/branch/customer"
 	"log"
@@ -61,9 +62,10 @@ func main() {
 	// fmt.Println("Associations")
 	// bank1 := bank.Bank{}
 	// bankID := bank1.ID
-	// associations.RemoveAssociation(db)
+	associations.RemoveAssociation(db)
 
-	GetCustFromBank(db)
+	// associations.FindAssociations(db)
+	// GetCustFromBank(db)
 
 }
 
