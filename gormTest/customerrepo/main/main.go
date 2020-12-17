@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	customer "gormTest/customerrepo/model"
+	"gormTest/customerrepo/model"
 	"gormTest/customerrepo/repository"
 
 	_ "github.com/go-sql-driver/mysql"
@@ -19,56 +19,75 @@ func main() {
 	defer db.Close()
 	fmt.Println("DB connected Successfully")
 
-	db.AutoMigrate(&customer.Customer{})
+	db.AutoMigrate(&model.Customer{}, &model.Order{})
+	// db.Model(&model.Order{}).AddForeignKey("customer_id", "customers(id)", "CASCADE", "RESTRICT")
 
 	uow := repository.NewUnitOfWork(db, false)
 
 	repo := repository.NewRepository()
-	// Adding new customers
-	cust := customer.Customer{
-		Name:    "Tim",
-		Address: "Mumbai",
-		Age:     21,
+
+	// =======================Adding new customers=========================
+	cust := &model.Customer{
+
+		Name: "Tom",
+		Orders: []model.Order{
+			{
+				OrderID:   502,
+				OrderName: "Order1",
+			},
+			{
+				OrderID:   504,
+				OrderName: "Order4",
+			},
+		},
 	}
 	cust.ID = 101
 
 	uow.Committed = true
-	if err := repo.AddCustomer(uow, cust); err != nil {
+	if err := repo.Update(uow, cust); err != nil {
 		uow.Complete()
 		return
 	}
 	uow.Commit()
 	fmt.Println("Customer added")
 
-	// Get All Customers from the table
-	// cust := &customer.Customer{}
+	// ==================Get All Customers from the table======================
+	// cust := &model.Customer{}
+	// cust.ID = 101
 	// if err := repo.Get(uow, cust); err != nil {
 	// 	uow.Complete()
 	// 	return
 	// }
 	// uow.Commit()
-	// fmt.Println(cust)
-	// for i, c := range customers {
-	// 	fmt.Println("Customer", i, ":", c)
+	// fmt.Println(*cust)
+
+	// ===========================Updating Customer Name=====================
+	// cust := &model.Customer{
+	// 	Name: "Ben",
 	// }
+	// cust.ID = 103
 
-	// Updating Customer Name
-	// cust := customer.Customer{}
-	// cust.ID = 104
-
-	// newCust := customer.Customer{
-	// 	Name: "Tom",
-	// }
-
-	// if err := repo.UpdateCustomer(uow, cust, newCust); err != nil {
+	// if err := repo.Update(uow, cust); err != nil {
 	// 	uow.Complete()
 	// 	return
 	// }
 	// uow.Commit()
 	// fmt.Println("Customer successfully updated")
 
-	// Delete customer from table
-	// if err := repo.DeleteCustomer(uow, cust); err != nil {
+	// ===================Delete customer from table============================
+	// cust := &model.Customer{}
+	// cust.ID = 103
+	// if err := repo.Delete(uow, cust); err != nil {
+	// 	uow.Complete()
+	// 	return
+	// }
+	// uow.Commit()
+	// fmt.Println("Customer Deleted")
+
+	// ===================Delete customer from table (Unscoped)============================
+	// cust := &model.Customer{}
+	// cust.ID = 103
+	// if err := repo.UnscopedDelete(uow, cust); err != nil {
 	// 	uow.Complete()
 	// 	return
 	// }
