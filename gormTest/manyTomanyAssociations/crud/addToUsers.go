@@ -1,7 +1,8 @@
 package crud
 
-import 	(
+import (
 	"fmt"
+	"gormTest/manyTomanyAssociations/languages"
 	"gormTest/manyTomanyAssociations/users"
 
 	"github.com/jinzhu/gorm"
@@ -9,14 +10,14 @@ import 	(
 
 func AddUser(db *gorm.DB) {
 
-	var lang5 = &users.Language{
+	var lang5 = &languages.Language{
 		Name: "Lang5",
 	}
 	lang5.ID = 15
 
 	user1 := &users.User{
 		Name: "New User",
-		Languages: []*users.Language{
+		Languages: []*languages.Language{
 			lang5,
 		},
 	}
@@ -27,7 +28,7 @@ func AddUser(db *gorm.DB) {
 
 func UpdateLang(db *gorm.DB) {
 
-	lang := &users.Language{}
+	lang := &languages.Language{}
 	lang.ID = 13
 	db.Debug().Model(&lang).Update("Name", "New Lang 13")
 
@@ -36,7 +37,7 @@ func UpdateLang(db *gorm.DB) {
 
 func DeleteUser(db *gorm.DB) {
 
-	delete := users.Language{}
+	delete := languages.Language{}
 	delete.ID = 14
 
 	db.Debug().Model(&delete).Delete(&delete)

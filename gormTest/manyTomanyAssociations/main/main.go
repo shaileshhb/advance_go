@@ -23,11 +23,8 @@ func main() {
 	// Creating users
 	var newUser1 = &users.User{
 		Name: "User3",
-		Languages: []*languages.Language{
+		Languages: []languages.Language{
 			{
-				Model: gorm.Model{
-					ID: 2,
-				},
 				Name: "Lang2",
 			},
 		},

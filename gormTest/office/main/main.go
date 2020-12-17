@@ -23,26 +23,26 @@ func main() {
 
 	// db.Model(&order.Order{}).AddForeignKey("customer_id", "customers(id)", "CASCADE", "RESTRICT")
 
-	// name := "Tom"
-	// orderName1 := "Order3"
-	// orderName2 := "Order4"
+	name := "Tom"
+	orderName1 := "Order3"
+	orderName2 := "Order4"
 
-	// customer1 := customer.Customer{
+	customer1 := customer.Customer{
 
-	// 	Name: &name,
-	// 	Orders: []order.Order{
-	// 		{
-	// 			OrderID:   503,
-	// 			OrderName: &orderName1,
-	// 		},
-	// 		{
-	// 			OrderID:   504,
-	// 			OrderName: &orderName2,
-	// 		},
-	// 	},
-	// }
+		Name: &name,
+		Orders: []order.Order{
+			{
+				OrderID:   503,
+				OrderName: &orderName1,
+			},
+			{
+				OrderID:   504,
+				OrderName: &orderName2,
+			},
+		},
+	}
 	// customer1.ID = uuid.NewV4()
-	// db.Create(&customer1)
+	db.Create(&customer1)
 	// fmt.Println("Data successfully added")
 
 	// Select

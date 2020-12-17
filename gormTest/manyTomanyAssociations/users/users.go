@@ -1,7 +1,7 @@
 package users
 
 import (
-	"gormTest/manyTomanyAssociations/languages"
+	"gorm/manyTomanyAssociations/languages"
 
 	"github.com/jinzhu/gorm"
 )
@@ -10,5 +10,5 @@ import (
 type User struct {
 	gorm.Model
 	Name      string
-	Languages []*languages.Language `gorm:"many2many:user_languages;"`
+	Languages []languages.Language `gorm:"many2many:user_languages;"`
 }
