@@ -4,7 +4,6 @@ import (
 	"fmt"
 	customer "gormTest/customerrepo/model"
 	"gormTest/customerrepo/repository"
-	"gormTest/customerrepo/unitofwork"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
@@ -22,7 +21,7 @@ func main() {
 
 	db.AutoMigrate(&customer.Customer{})
 
-	uow := unitofwork.NewUnitOfWork(db, false)
+	uow := repository.NewUnitOfWork(db, false)
 
 	repo := repository.NewRepository()
 	// Adding new customers

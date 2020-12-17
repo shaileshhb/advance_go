@@ -1,4 +1,4 @@
-package unitofwork
+package repository
 
 import "github.com/jinzhu/gorm"
 
