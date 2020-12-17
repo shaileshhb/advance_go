@@ -1,90 +1,57 @@
 package crud
 
 import (
-	"gormTest/repository/customer"
-	"gormTest/repository/unitOfWork"
+	customer "gormTest/repository/model"
+	"gormTest/repository/unitofwork"
 )
 
-func CreateCustomers(uow *unitOfWork.UnitOfWork, cust customer.Customer) error {
-
-	tx := uow.DB.Begin()
-	defer func() {
-		if r := recover(); r != nil {
-			tx.Rollback()
-		}
-	}()
-
-	if err := tx.Error; err != nil {
-		return err
-	}
-
-	if err := tx.Debug().Create(&cust).Error; err != nil {
-		tx.Rollback()
-		return err
-	}
-	uow.Committed = true
-
-	return tx.Commit().Error
+type Repository interface {
+	Get(uow *unitofwork.UnitOfWork) error
+	AddCustomer(uow *unitofwork.UnitOfWork, cust customer.Customer) error
+	UpdateCustomer(uow *unitofwork.UnitOfWork, cust customer.Customer, newCust customer.Customer) error
+	DeleteCustomer(uow *unitofwork.UnitOfWork, cust customer.Customer) error
 }
 
-func GetAllCustomers(uow *unitOfWork.UnitOfWork) []customer.Customer {
-	uow.Committed = false
-
-	cust := []customer.Customer{}
-
-	uow.DB.Debug().Model(&customer.Customer{}).Find(&cust)
-	return cust
+type GormRepository struct {
 }
 
-func GetCustomers(uow *unitOfWork.UnitOfWork, cust customer.Customer) customer.Customer {
-	uow.Committed = false
-
-	uow.DB.Debug().Model(&customer.Customer{}).First(&cust)
-	return cust
+func NewRepository() *GormRepository {
+	return &GormRepository{}
 }
 
-func UpdateCustomerName(uow *unitOfWork.UnitOfWork, cust customer.Customer, newName string) error {
+func (g *GormRepository) Get(uow *unitofwork.UnitOfWork, out interface{}) error {
 
-	uow.Committed = true
+	// cust := []customer.Customer{}
 
-	tx := uow.DB.Begin()
-	defer func() {
-		if r := recover(); r != nil {
-			tx.Rollback()
-		}
-	}()
+	db := uow.DB
 
-	if err := tx.Error; err != nil {
+	if err := db.Debug().Model(&out).Find(&out).Error; err != nil {
 		return err
 	}
-
-	if err := tx.Debug().Model(&cust).Update("Name", newName).Error; err != nil {
-		tx.Rollback()
-		return err
-	}
-
-	return tx.Commit().Error
+	return nil
 }
 
-func DeleteCustomer(uow *unitOfWork.UnitOfWork, cust customer.Customer) error {
+func (g *GormRepository) AddCustomer(uow *unitofwork.UnitOfWork, cust customer.Customer) error {
 
-	uow.Committed = true
-
-	tx := uow.DB.Begin()
-	defer func() {
-		if r := recover(); r != nil {
-			tx.Rollback()
-		}
-	}()
-
-	if err := tx.Error; err != nil {
+	if err := uow.DB.Debug().Create(&cust).Error; err != nil {
 		return err
 	}
+	return nil
+}
 
-	if err := tx.Debug().Where("id=?", cust.ID).Delete(&cust).Error; err != nil {
-		tx.Rollback()
+func (g *GormRepository) UpdateCustomer(uow *unitofwork.UnitOfWork, cust customer.Customer, newCust customer.Customer) error {
+
+	if err := uow.DB.Debug().Model(&cust).Update(&newCust).Error; err != nil {
 		return err
 	}
+	return nil
 
-	return tx.Commit().Error
+}
+
+func (g *GormRepository) DeleteCustomer(uow *unitofwork.UnitOfWork, cust customer.Customer) error {
+
+	if err := uow.DB.Debug().Where("id=?", cust.ID).Delete(&cust).Error; err != nil {
+		return err
+	}
+	return nil
 }

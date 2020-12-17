@@ -1,7 +1,7 @@
 package users
 
 import (
-	"gorm/manyTomanyAssociations/languages"
+	"gormTest/manyTomanyAssociations/languages"
 
 	"github.com/jinzhu/gorm"
 )

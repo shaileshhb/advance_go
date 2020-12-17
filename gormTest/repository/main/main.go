@@ -3,8 +3,8 @@ package main
 import (
 	"fmt"
 	"gormTest/repository/crud"
-	"gormTest/repository/customer"
-	"gormTest/repository/unitOfWork"
+	customer "gormTest/repository/model"
+	"gormTest/repository/unitofwork"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
@@ -22,49 +22,58 @@ func main() {
 
 	db.AutoMigrate(&customer.Customer{})
 
-	uow := &unitOfWork.UnitOfWork{
-		DB:        db,
-		Committed: false,
-		Readonly:  true,
-	}
+	uow := unitofwork.NewUnitOfWork(db, false)
 
+	repo := crud.NewRepository()
+	// Adding new customers
 	// cust := customer.Customer{
-	// 	Name:    "Jack",
-	// 	Address: "delhi",
+	// 	Name:    "Tim",
+	// 	Address: "Mumbai",
 	// 	Age:     21,
 	// }
-	// cust.ID = 103
+	// cust.ID = 101
 
-	// err = crud.CreateCustomers(uow, cust)
-	// if err != nil {
-	// 	fmt.Println(err)
+	// uow.Committed = true
+	// if err := repo.AddCustomer(uow, cust); err != nil {
+	// 	uow.Complete()
 	// 	return
 	// }
-	// fmt.Println("Customer added successfully")
+	// uow.Commit()
+	// fmt.Println("Customer added")
 
-	// customers := crud.GetAllCustomers(uow)
+	// Get All Customers from the table
+	cust := customer.Customer{}
+	if err := repo.Get(uow, cust); err != nil {
+		uow.Complete()
+		return
+	}
+	uow.Commit()
+	fmt.Println(cust)
 	// for i, c := range customers {
 	// 	fmt.Println("Customer", i, ":", c)
 	// }
 
-	cust := customer.Customer{}
-	cust.ID = 102
+	// Updating Customer Name
+	// cust := customer.Customer{}
+	// cust.ID = 104
 
-	// err = crud.UpdateCustomerName(uow, cust, "Ben")
-	// if err != nil {
-	// 	fmt.Println(err)
+	// newCust := customer.Customer{
+	// 	Name: "Tom",
+	// }
+
+	// if err := repo.UpdateCustomer(uow, cust, newCust); err != nil {
+	// 	uow.Complete()
 	// 	return
 	// }
-	// fmt.Println("Name successfully updated")
+	// uow.Commit()
+	// fmt.Println("Customer successfully updated")
 
-	// currentCustomer := crud.GetCustomers(uow, cust)
-	// fmt.Println("Customer:", currentCustomer)
-
-	err = crud.DeleteCustomer(uow, cust)
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	fmt.Println("Customer Deleted")
+	// Delete customer from table
+	// if err := repo.DeleteCustomer(uow, cust); err != nil {
+	// 	uow.Complete()
+	// 	return
+	// }
+	// uow.Commit()
+	// fmt.Println("Customer Deleted")
 
 }
