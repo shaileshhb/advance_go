@@ -6,7 +6,7 @@ import (
 )
 
 type Repository interface {
-	Get(uow *unitofwork.UnitOfWork) error
+	Get(uow *unitofwork.UnitOfWork, out interface{}) error
 	AddCustomer(uow *unitofwork.UnitOfWork, cust customer.Customer) error
 	UpdateCustomer(uow *unitofwork.UnitOfWork, cust customer.Customer, newCust customer.Customer) error
 	DeleteCustomer(uow *unitofwork.UnitOfWork, cust customer.Customer) error
@@ -20,12 +20,9 @@ func NewRepository() *GormRepository {
 }
 
 func (g *GormRepository) Get(uow *unitofwork.UnitOfWork, out interface{}) error {
-
-	// cust := []customer.Customer{}
-
 	db := uow.DB
 
-	if err := db.Debug().Model(&out).Find(&out).Error; err != nil {
+	if err := db.Debug().Find(out).Error; err != nil {
 		return err
 	}
 	return nil

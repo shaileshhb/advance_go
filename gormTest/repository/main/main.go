@@ -42,7 +42,7 @@ func main() {
 	// fmt.Println("Customer added")
 
 	// Get All Customers from the table
-	cust := customer.Customer{}
+	cust := &customer.Customer{}
 	if err := repo.Get(uow, cust); err != nil {
 		uow.Complete()
 		return
