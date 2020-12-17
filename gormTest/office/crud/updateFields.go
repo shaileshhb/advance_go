@@ -1,11 +1,10 @@
 package crud
 
 import (
-	"gormTest/office/customer"
-	"gormTest/office/order"
-
 	"github.com/jinzhu/gorm"
 	uuid "github.com/satori/go.uuid"
+	"github.com/shaileshhb/advance_go/gormTest/office/customer"
+	"github.com/shaileshhb/advance_go/gormTest/office/order"
 )
 
 func UpdateCustomer(db *gorm.DB, newName *string, id uuid.UUID) customer.Customer {

@@ -1,4 +1,4 @@
-module gormTest
+module github.com/shaileshhb/advance_go
 
 go 1.15
 

@@ -1,8 +1,8 @@
 package customer
 
 import (
-	"gormTest/office/model"
-	"gormTest/office/order"
+	"github.com/shaileshhb/advance_go/gormTest/office/model"
+	"github.com/shaileshhb/advance_go/gormTest/office/order"
 )
 
 type Customer struct {

@@ -1,18 +1,20 @@
 package repository
 
 import (
-	customer "gormTest/customerrepo/model"
+	"github.com/jinzhu/gorm"
+	"github.com/shaileshhb/advance_go/gormTest/customerrepo/model"
 )
 
 type Repository interface {
 	Get(uow *UnitOfWork, out interface{}) error
-	AddCustomer(uow *UnitOfWork, cust customer.Customer) error
-	UpdateCustomer(uow *UnitOfWork, cust customer.Customer, newCust customer.Customer) error
-	DeleteCustomer(uow *UnitOfWork, cust customer.Customer) error
+	AddCustomer(uow *UnitOfWork, cust model.Customer) error
+	UpdateCustomer(uow *UnitOfWork, cust model.Customer, newCust model.Customer) error
+	DeleteCustomer(uow *UnitOfWork, cust model.Customer) error
 }
 
-type GormRepository struct {
-}
+type GormRepository struct{}
+
+type QueryProcessor func(db *gorm.DB, out interface{}) (*gorm.DB, error)
 
 func NewRepository() *GormRepository {
 	return &GormRepository{}

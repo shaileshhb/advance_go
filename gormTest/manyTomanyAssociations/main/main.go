@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"gormTest/manyTomanyAssociations/languages"
-	"gormTest/manyTomanyAssociations/users"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
+	"github.com/shaileshhb/advance_go/gormTest/manyTomanyAssociations/languages"
+	"github.com/shaileshhb/advance_go/gormTest/manyTomanyAssociations/users"
 )
 
 func main() {

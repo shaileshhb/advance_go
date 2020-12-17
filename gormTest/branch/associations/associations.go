@@ -2,11 +2,11 @@ package associations
 
 import (
 	"fmt"
-	"gormTest/branch/bank"
-	"gormTest/branch/customer"
 
 	"github.com/jinzhu/gorm"
 	uuid "github.com/satori/go.uuid"
+	"github.com/shaileshhb/advance_go/gormTest/branch/bank"
+	"github.com/shaileshhb/advance_go/gormTest/branch/customer"
 )
 
 func FindAssociations(db *gorm.DB) {

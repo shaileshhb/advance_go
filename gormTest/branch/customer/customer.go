@@ -1,9 +1,8 @@
 package customer
 
 import (
-	"gormTest/branch/model"
-
 	uuid "github.com/satori/go.uuid"
+	"github.com/shaileshhb/advance_go/gormTest/branch/model"
 )
 
 type BankCustomer struct {

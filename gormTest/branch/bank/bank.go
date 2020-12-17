@@ -1,8 +1,8 @@
 package bank
 
 import (
-	"gormTest/branch/customer"
-	"gormTest/branch/model"
+	"github.com/shaileshhb/advance_go/gormTest/branch/customer"
+	"github.com/shaileshhb/advance_go/gormTest/branch/model"
 )
 
 type Bank struct {

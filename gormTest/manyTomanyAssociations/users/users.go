@@ -1,9 +1,8 @@
 package users
 
 import (
-	"gormTest/manyTomanyAssociations/languages"
-
 	"github.com/jinzhu/gorm"
+	"github.com/shaileshhb/advance_go/gormTest/manyTomanyAssociations/languages"
 )
 
 // User has and belongs to many languages, use `user_languages` as join table

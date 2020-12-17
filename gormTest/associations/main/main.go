@@ -2,12 +2,12 @@ package main
 
 import (
 	"fmt"
-	"gormTest/associations/associationsCrud"
-	"gormTest/associations/city"
-	"gormTest/associations/location"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
+	"github.com/shaileshhb/advance_go/gormTest/associations/associationsCrud"
+	"github.com/shaileshhb/advance_go/gormTest/associations/city"
+	"github.com/shaileshhb/advance_go/gormTest/associations/location"
 )
 
 func main() {

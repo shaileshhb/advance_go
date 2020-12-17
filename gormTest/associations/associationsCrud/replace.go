@@ -1,10 +1,9 @@
 package associationsCrud
 
 import (
-	"gormTest/associations/city"
-	"gormTest/associations/location"
-
 	"github.com/jinzhu/gorm"
+	"github.com/shaileshhb/advance_go/gormTest/associations/city"
+	"github.com/shaileshhb/advance_go/gormTest/associations/location"
 )
 
 func CountAssociations(db *gorm.DB, id uint) int {

@@ -1,9 +1,8 @@
 package city
 
 import (
-	"gormTest/associations/location"
-
 	"github.com/jinzhu/gorm"
+	"github.com/shaileshhb/advance_go/gormTest/associations/location"
 )
 
 type City struct {

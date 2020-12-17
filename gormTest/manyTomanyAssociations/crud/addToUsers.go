@@ -2,22 +2,22 @@ package crud
 
 import (
 	"fmt"
-	"gormTest/manyTomanyAssociations/languages"
-	"gormTest/manyTomanyAssociations/users"
 
 	"github.com/jinzhu/gorm"
+	"github.com/shaileshhb/advance_go/gormTest/manyTomanyAssociations/languages"
+	"github.com/shaileshhb/advance_go/gormTest/manyTomanyAssociations/users"
 )
 
 func AddUser(db *gorm.DB) {
 
-	var lang5 = &languages.Language{
+	var lang5 = languages.Language{
 		Name: "Lang5",
 	}
 	lang5.ID = 15
 
 	user1 := &users.User{
 		Name: "New User",
-		Languages: []*languages.Language{
+		Languages: []languages.Language{
 			lang5,
 		},
 	}

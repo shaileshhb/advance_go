@@ -2,11 +2,11 @@ package main
 
 import (
 	"fmt"
-	"gormTest/customerrepo/model"
-	"gormTest/customerrepo/repository"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
+	"github.com/shaileshhb/advance_go/gormTest/customerrepo/model"
+	"github.com/shaileshhb/advance_go/gormTest/customerrepo/repository"
 )
 
 func main() {

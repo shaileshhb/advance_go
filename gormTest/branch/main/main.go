@@ -3,14 +3,14 @@ package main
 import (
 	"errors"
 	"fmt"
-	"gormTest/branch/associations"
-	"gormTest/branch/bank"
-	"gormTest/branch/customer"
 	"log"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
 	uuid "github.com/satori/go.uuid"
+	"github.com/shaileshhb/advance_go/gormTest/branch/associations"
+	"github.com/shaileshhb/advance_go/gormTest/branch/bank"
+	"github.com/shaileshhb/advance_go/gormTest/branch/customer"
 )
 
 func main() {
