@@ -2,8 +2,8 @@ package main
 
 import (
 	"fmt"
+	"gormTest/manyTomanyAssociations/languages"
 	"gormTest/manyTomanyAssociations/users"
-	"gormTest/manyTomanyAssociations/crud"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
@@ -18,30 +18,38 @@ func main() {
 	}
 	defer db.Close()
 
-	db.AutoMigrate(&users.User{}, &users.Language{})
-
-	//  Users
+	db.AutoMigrate(&users.User{}, &languages.Language{})
 
 	// Creating users
-	// var newUser1 = &users.User{
-	// 	Name: "User1",
-	// 	Languages: []*users.Language{
-	// 		lang1, lang2,
-	// 	},
-	// }
+	var newUser1 = &users.User{
+		Name: "User3",
+		Languages: []*languages.Language{
+			{
+				Model: gorm.Model{
+					ID: 2,
+				},
+				Name: "Lang2",
+			},
+		},
+	}
 
 	// var newUser2 = &users.User{
 	// 	Name: "User2",
-	// 	Languages: []*users.Language{
-	// 		lang3, lang4,
+	// 	Languages: []*languages.Language{
+	// 		{
+	// 			Name: "Lang3",
+	// 		},
+	// 		{
+	// 			Name: "Lang1",
+	// 		},
 	// 	},
 	// }
 
-	// db.Create(newUser1)
+	db.Create(newUser1)
 	// db.Create(newUser2)
 
 	// crud.AddUser(db)
-	crud.DeleteUser(db)
+	// crud.DeleteUser(db)
 
 	fmt.Println("Data entered successfully")
 }
