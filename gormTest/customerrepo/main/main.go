@@ -2,9 +2,9 @@ package main
 
 import (
 	"fmt"
-	"gormTest/repository/crud"
-	customer "gormTest/repository/model"
-	"gormTest/repository/unitofwork"
+	customer "gormTest/customerrepo/model"
+	"gormTest/customerrepo/repository"
+	"gormTest/customerrepo/unitofwork"
 
 	_ "github.com/go-sql-driver/mysql"
 	"github.com/jinzhu/gorm"
@@ -24,31 +24,31 @@ func main() {
 
 	uow := unitofwork.NewUnitOfWork(db, false)
 
-	repo := crud.NewRepository()
+	repo := repository.NewRepository()
 	// Adding new customers
-	// cust := customer.Customer{
-	// 	Name:    "Tim",
-	// 	Address: "Mumbai",
-	// 	Age:     21,
-	// }
-	// cust.ID = 101
+	cust := customer.Customer{
+		Name:    "Tim",
+		Address: "Mumbai",
+		Age:     21,
+	}
+	cust.ID = 101
 
-	// uow.Committed = true
-	// if err := repo.AddCustomer(uow, cust); err != nil {
-	// 	uow.Complete()
-	// 	return
-	// }
-	// uow.Commit()
-	// fmt.Println("Customer added")
-
-	// Get All Customers from the table
-	cust := &customer.Customer{}
-	if err := repo.Get(uow, cust); err != nil {
+	uow.Committed = true
+	if err := repo.AddCustomer(uow, cust); err != nil {
 		uow.Complete()
 		return
 	}
 	uow.Commit()
-	fmt.Println(cust)
+	fmt.Println("Customer added")
+
+	// Get All Customers from the table
+	// cust := &customer.Customer{}
+	// if err := repo.Get(uow, cust); err != nil {
+	// 	uow.Complete()
+	// 	return
+	// }
+	// uow.Commit()
+	// fmt.Println(cust)
 	// for i, c := range customers {
 	// 	fmt.Println("Customer", i, ":", c)
 	// }

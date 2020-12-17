@@ -1,8 +1,8 @@
-package crud
+package repository
 
 import (
-	customer "gormTest/repository/model"
-	"gormTest/repository/unitofwork"
+	customer "gormTest/customerrepo/model"
+	"gormTest/customerrepo/unitofwork"
 )
 
 type Repository interface {
